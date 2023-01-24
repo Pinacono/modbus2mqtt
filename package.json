@@ -1,6 +1,6 @@
 {
   "name": "@pinacono/modbus2mqtt",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Modbus2MQTT bridge",
   "main": "index.js",
   "scripts": {
