@@ -18,3 +18,10 @@ controller.mqtt.on('connect', () => {
 controller.mqtt.on('disconnect', () => {
   console.log('index.js - mqtt connected');
 });
+
+const shutdown = () => {
+  controller.mqtt.disconnect();
+};
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
+process.on('exit', shutdown);
