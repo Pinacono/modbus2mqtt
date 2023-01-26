@@ -11,9 +11,10 @@ const Controller = require('./lib/controller');
 const controller = new Controller();
 controller.start();
 
-const shutdown = () => {
-  fs.unlink('/var/run/mqtt.' + process.pid);
-};
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
-process.on('exit', shutdown);
+controller.mqtt.on('connect', () => {
+  console.log('index.js - mqtt connected');
+});
+
+controller.mqtt.on('disconnect', () => {
+  console.log('index.js - mqtt connected');
+});
