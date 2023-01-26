@@ -10,3 +10,19 @@ const Controller = require('./lib/controller');
 
 const controller = new Controller();
 controller.start();
+
+const fs = require('fs');
+controller.mqtt.on('connect', (url) => {
+  fs.writeFile('/var/run/mqtt.' + process.pid, url, () => 0);
+});
+
+controller.mqtt.on('disconnect', () => {
+  fs.unlink('/var/run/mqtt.' + process.pid, () => 0);
+});
+
+const shutdown = () => {
+  controller.mqtt.disconnect();
+};
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
+process.on('exit', shutdown);
