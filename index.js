@@ -11,12 +11,13 @@ const Controller = require('./lib/controller');
 const controller = new Controller();
 controller.start();
 
-controller.mqtt.on('connect', () => {
-  console.log('index.js - mqtt connected');
+const fs = require('fs');
+controller.mqtt.on('connect', (url) => {
+  fs.writeFile('/var/run/mqtt.' + process.pid, url, () => 0);
 });
 
 controller.mqtt.on('disconnect', () => {
-  console.log('index.js - mqtt connected');
+  fs.unlink('/var/run/mqtt.' + process.pid);
 });
 
 const shutdown = () => {
