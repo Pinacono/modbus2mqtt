@@ -17,7 +17,7 @@ controller.mqtt.on('connect', (url) => {
 });
 
 controller.mqtt.on('disconnect', () => {
-  fs.unlink('/var/run/mqtt.' + process.pid);
+  fs.unlink('/var/run/mqtt.' + process.pid, () => 0);
 });
 
 const shutdown = () => {
